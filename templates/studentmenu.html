@@ -1,0 +1,101 @@
+{% extends "student.html" %}
+{% block head %}
+<style>
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background-color: #f9f9f9;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .table {
+        width: 100%;
+        margin-bottom: 20px;
+        border-collapse: separate;
+        border-spacing: 0;
+        background-color: #343a40;
+        color: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .table th, .table td {
+        padding: 15px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        text-align: left;
+    }
+
+    .table th {
+        background-color: #495057;
+        font-size: 18px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #f1f1f1;
+    }
+
+    .table td {
+        font-size: 16px;
+    }
+
+    h5 {
+        font-size: 20px;
+        color: #ffc107;
+    }
+
+    .text-right {
+        text-align: right;
+    }
+
+    .table tbody tr:hover {
+        background-color: #212529;
+        transition: background-color 0.3s ease;
+    }
+
+    .table tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+    .session-text {
+        font-size: 16px;
+        color: #ffc107;
+    }
+</style>
+
+
+{% endblock head %}
+{% block body %}
+<div class="container py-4">
+   
+  
+    {% for Studentprofile in sp %}
+    <table class="table table-bordered table-dark">
+        <thead>
+            <tr>
+                <th scope="col">Course</th>
+                <th scope="col" class="text-right">Session</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <h5>{{ Studentprofile.course }}</h5>
+                </td>
+                <td>
+                    <p class="session-text text-right">{{ Studentprofile.session }}</p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    {% endfor %}
+  
+  
+</div>  
+
+
+
+
+
+
+{% endblock body %}

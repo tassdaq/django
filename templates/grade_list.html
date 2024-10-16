@@ -1,0 +1,15 @@
+{% extends "teachers.html" %}
+{% block body %}
+<h2>Grade List</h2>
+
+<ul>
+  {% for grade in grades %}
+    <li>{{ grade }}</li>
+  {% endfor %}
+</ul>
+
+
+
+
+
+{% endblock body %}

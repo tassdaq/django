@@ -1,0 +1,119 @@
+{% extends "teachers.html" %}
+
+{% block head %}
+<style>
+    .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 30px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        font-size: 32px;
+        color: #333;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+
+    .table {
+        width: 100%;
+        background-color: #fff;
+        border-collapse: collapse;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .table th, .table td {
+        padding: 15px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .table th {
+        background-color: #333333;
+        color: white;
+        font-size: 16px;
+        text-transform: uppercase;
+        font-weight: 600;
+    }
+
+    .table td {
+        font-size: 14px;
+        color: #555;
+    }
+
+    .table tbody tr:hover {
+        background-color: #f1f1f1;
+        transition: background-color 0.3s ease;
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+        .table, .table thead, .table tbody, .table th, .table td, .table tr {
+            display: block;
+        }
+
+        .table thead {
+            display: none;
+        }
+
+        .table tr {
+            margin-bottom: 15px;
+        }
+
+        .table td {
+            text-align: right;
+            padding-left: 50%;
+            position: relative;
+        }
+
+        .table td::before {
+            content: attr(data-label);
+            position: absolute;
+            left: 15px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+    }
+</style>
+{% endblock head %}
+
+{% block body %}
+
+<h1 class="text-center py-4">Student Records</h1>
+
+<div class="container py-4">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Username</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Class</th>
+                <th scope="col">Course</th>
+                <th scope="col">Session</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for Studentprofile in st %}
+            <tr>
+                <td data-label="ID">{{ Studentprofile.rollid }}</td>
+                <td data-label="Username">{{ Studentprofile.user }}</td>
+                <td data-label="Name">{{ Studentprofile.user.first_name }}</td>
+                <td data-label="Email">{{ Studentprofile.user.email }}</td>
+                <td data-label="Class">{{ Studentprofile.address }}</td>
+                <td data-label="Course">{{ Studentprofile.course }}</td>
+                <td data-label="Session">{{ Studentprofile.session }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock body %}

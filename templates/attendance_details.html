@@ -1,0 +1,131 @@
+{% extends "teachers.html" %}
+
+{% block head %}
+<style>
+    /* General Container Styling */
+    .container {
+        max-width: 900px;
+        margin: 0 auto;
+        background-color: #f8f9fa;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Navigation Tabs Styling */
+    .nav-tabs {
+        margin-bottom: 20px;
+    }
+
+    .nav-tabs .nav-link {
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        color: #000;
+        background-color: #e9ecef;
+        border-radius: 5px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .nav-tabs .nav-link:hover {
+        background-color:#00CED1;
+        color: #fff;
+    }
+
+    .nav-tabs .nav-link.active {
+        background-color: #00CED1;
+        color: #fff;
+    }
+
+    /* Heading Styling */
+    h1 {
+        font-size: 36px;
+        font-weight: bold;
+        color: #333;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    /* Table Styling */
+    .table {
+        width: 100%;
+        margin-bottom: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .table thead th {
+        background-color: #333333;
+        color: #fff;
+        font-weight: 600;
+        text-align: center;
+        padding: 12px;
+    }
+
+    .table tbody td {
+        text-align: center;
+        padding: 15px;
+        vertical-align: middle;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    .table tbody tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    /* Status Text Colors */
+    .text-present {
+        color: green;
+        font-weight: bold;
+    }
+
+    .text-absent {
+        color: red;
+        font-weight: bold;
+    }
+</style>
+{% endblock head %}
+
+{% block body %}
+<div class="container py-4">
+    <ul class="nav nav-tabs justify-content-end">
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/attendance_details">Attendance Report Details</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/attendances">Add New Attendance</a>
+        </li>
+    </ul>
+
+    <h1 class="display-4 text-center py-4">Attendance Report</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Attendance</th>
+                <th>Attendance Status</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for report in reports %}
+            <tr>
+                <td>{{ report.student }}</td>
+                <td>{{ report.attendance }}</td>
+                <td>
+                    {% if report.status %}
+                        <span class="text-present">Present</span>
+                    {% else %}
+                        <span class="text-absent">Absent</span>
+                    {% endif %}
+                </td>
+                <td>{{ report.date }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock body %}

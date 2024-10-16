@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>{% block title %}Teacher{% endblock title %}</title>
+   
+    <style>
+      body {
+        background-color: #fbfbfb;
+      }
+      @media (min-width: 991.98px) {
+        main {
+          padding-left: 240px;
+        }
+      }
+      
+      /* Sidebar */
+      .sidebar {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        padding: 58px 0 0; /* Height of navbar */
+        box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
+        width: 240px;
+        z-index: 600;
+      }
+      
+      @media (max-width: 991.98px) {
+        .sidebar {
+          width: 100%;
+        }
+      }
+      .sidebar .active {
+        border-radius: 5px;
+        box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+        background-color:#00CED1;
+        border-color:#00CED1;
+      }
+      
+      .sidebar-sticky {
+        position: relative;
+        top: 0;
+        height: calc(100vh - 48px);
+        padding-top: 0.5rem;
+        overflow-x: hidden;
+        overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+      }
+
+    </style>
+
+     
+   </head>
+  
+{% block head %}{% endblock head %}
+
+<body>
+  
+ {% url "teachermenu" as teachermenu %}
+ {% url "attendancereport" as attendancereport %}
+ {% url "reportview" as reportview %} 
+ {% url "result" as result %}
+ {% url "createtest" as createtest %}
+
+
+  <nav
+       id="sidebarMenu"
+       class="collapse d-lg-block sidebar collapse bg-white"
+       >
+      
+    <div class="position-sticky py-4">
+      <div class="list-group list-group-flush mx-3 mt-3">
+        <a
+           href="/teachermenu"
+           class="list-group-item list-group-item-action py-2 ripple {% if request.path == teachermenu %} active {% endif %}}"
+         
+       
+          
+           >
+           <i class="fa-solid fa-gauge"></i>
+          <span style="font-family:verdana;">&nbspDashboard</span>
+        </a>
+       
+        <a
+          href="/createtest"
+          class="list-group-item list-group-item-action py-2 ripple {% if request.path == createtest %} active {% endif %}"
+       
+        ><i class="fa-solid fa-school"></i><span style="font-family:verdana;">&nbspCreate test</span></a
+         >
+
+
+
+
+
+        
+        <a
+          href="/attendancereport"
+          class="list-group-item list-group-item-action py-2 ripple {% if request.path == attendancereport %} active {% endif %}"
+       
+        ><i class="fa-solid fa-clipboard-user"></i><span style="font-family:verdana;">&nbsp&nbsp Attendance</span></a
+         >
+       
+        <a
+          href="/reportview"
+          class="list-group-item list-group-item-action py-2 ripple {% if request.path == reportview %} active {% endif %}"
+       
+          ><i class="fa-solid fa-street-view"></i><span style="font-family:verdana;">&nbsp Report View</span></a
+         >
+       
+         <a
+          href="/result"
+          class="list-group-item list-group-item-action py-2 ripple {% if request.path == result %} active {% endif %}"
+       
+          ><i class="fa-solid fa-user-graduate"></i><span style="font-family:verdana;">&nbsp Result</span></a
+         >
+
+          
+       
+       
+       
+        
+       
+        
+      </div>
+    </div>
+  </nav>
+  <!-- Sidebar -->
+
+  <!-- Navbar -->
+  <nav
+       id="main-navbar"
+       class="navbar navbar-expand-lg navbar-light  fixed-top"
+        style="background-color:#ffffff;"
+       >
+    <!-- Container wrapper -->
+    <div class="container-fluid">
+      <!-- Toggle button -->
+      <button
+              class="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target="#sidebarMenu"
+              aria-controls="sidebarMenu"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+              >
+              <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Brand -->
+      <a class="navbar-brand" href="#">
+        <img
+        src="/static/img/logo.png"
+        height="auto"
+        alt=""
+        width="200"
+        loading="lazy"
+        />
+      </a>
+     
+
+      <!-- Right links -->
+      <ul class="navbar-nav ms-auto d-flex flex-row">
+        <!-- Notification dropdown -->
+      
+
+      
+
+        <!-- Icon dropdown -->
+        
+
+        <!-- Avatar -->
+        {% if user.is_authenticated %}
+        <li class="nav-item dropdown">
+
+          <a
+             class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center"
+             href="#"
+             id="navbarDropdownMenuLink"
+             role="button"
+             data-toggle="dropdown"
+             aria-expanded="false"
+             >
+             
+             {% for Teacherprofile in tp %}
+             {%if Teacherprofile.photo%}
+            <img
+                 src="{{Teacherprofile.photo.url}}"
+                 class="rounded-circle mr-2"
+                 height="22"
+                 alt=""
+                 loading="lazy"
+                 />
+
+                 {% endif %}
+                
+                 {% endfor %}
+                  {{request.user}}
+          </a>
+          
+          {% endif %}
+          <ul
+              class="dropdown-menu dropdown-menu-md-right"
+              aria-labelledby="navbarDropdownMenuLink"
+              >
+            <li><a class="dropdown-item"  href="{% url 'editteacher' username=user.username %}">My profile</a></li>
+           
+            <li><a class="dropdown-item" href="/logout">Logout</a></li>
+            
+          </ul>
+          
+        </li>
+      </ul>
+    </div>
+    <!-- Container wrapper -->
+  </nav>
+
+  <!-- Navbar -->
+
+
+</header>
+<!--Main Navigation-->
+
+
+<!--Main layout-->
+<main style="margin-top: 58px">
+  <div class="container pt-4">
+    {% if messages %}
+{% for message in messages %}
+<div class="alert alert-{{ message.tags }} alert-dismissible fade show my-0" role="alert">
+  <strong>{{ message }}</strong>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+ {% endfor %}
+{% endif %}
+    
+    
+{% block body %}
+
+
+
+
+
+{% endblock body %}
+
+
+  </div>
+</main>
+</body>
+   
+
+  
+<!-- Bootstrap core JS-->
+   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+   </body>
+</html>

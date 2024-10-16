@@ -1,0 +1,12 @@
+def studentattendance(request,report_type):
+print(resolve(request.path_info))
+if report_type == 'present':
+    reports = AttendanceReport.objects.filter(status=True)
+elif report_type == 'absent':
+    reports = AttendanceReport.objects.filter(status=False)
+elif report_type == 'all':
+    reports = AttendanceReport.objects.all()
+else:
+    # Handle invalid report_type, you can customize this based on your needs
+    return render(request, 'error_page.html', {'error_message': 'Invalid report type'})
+return render(request,'student_attendance.html',{'reports': reports, 'report_type': report_type})

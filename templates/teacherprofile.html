@@ -1,0 +1,16 @@
+{% extends "userprofile.html" %}
+{% block body %}
+<div class="text-right"><a href="{% url 'editteacher' username=user.username %}" type = "button" class="btn btn-dark">Update Profile</a></div>
+<h1 class="diplay-5 text-center">Teacher Profile</h1>
+
+<div class="container py-4">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ user_form.as_p }}
+        {{ teacher_profile_form.as_p }}
+
+        <button class="btn btn-primary" type="submit">Save</button>
+    </form>
+</div>
+  </div>
+{% endblock body %}

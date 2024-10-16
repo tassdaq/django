@@ -1,0 +1,70 @@
+{% extends "student.html" %}
+{% block head %}
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f9f9f9;
+        color: #333;
+        margin: 0;
+        padding: 20px;
+    }
+
+    h1 {
+        text-align: center;
+        color: #000;
+    }
+
+    .question {
+        background: #ffffff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 15px;
+        margin-bottom: 10px;
+    }
+
+    .choice {
+        margin: 10px 0;
+    }
+
+    button {
+        background-color: #333333;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 15px;
+        cursor: pointer;
+        font-size: 16px;
+        display: block;
+        margin: 0 auto;
+    }
+
+    button:hover {
+        background-color: #333333;
+    }
+</style>
+{% endblock head %}
+
+
+
+{% block body %}
+<h1>{{ test.title }}</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {% for question in test.questions.all %}
+        <div class="question">
+            <p><b>{{ question.question_text }}</b></p>
+            {% for choice in question.choices.all %}
+                <div class="choice">
+                    <label>
+                        <input type="radio" name="question_{{ question.id }}" value="{{ choice.id }}">
+                        {{ choice.choice_text }}
+                    </label>
+                </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+    <button type="submit">Submit</button>
+</form>
+
+{% endblock body %}

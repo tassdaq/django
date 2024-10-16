@@ -1,0 +1,96 @@
+{% extends "userprofile.html" %}
+{% block head %}
+
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f8f9fa;
+    }
+
+    .container {
+        max-width: 900px;
+        margin: 40px auto;
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        color: #333;
+        font-size: 32px;
+        text-align: center;
+        margin-bottom: 30px;
+        font-weight: bold;
+    }
+
+    .table {
+        width: 100%;
+        margin-bottom: 1rem;
+        background-color: transparent;
+        border-collapse: collapse;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .table th, .table td {
+        padding: 12px;
+        text-align: center;
+        border: 1px solid #dee2e6;
+    }
+
+    .table th {
+        background-color: #f2f2f2;
+        color: #555;
+        font-weight: 600;
+    }
+
+    .table td {
+        background-color: #f9f9f9;
+    }
+
+    .table .present {
+        color: green;
+        font-weight: bold;
+    }
+
+    .table .absent {
+        color: red;
+        font-weight: bold;
+    }
+</style>
+{% endblock head %}
+
+
+
+{% block body %}
+<h1 class="display-4 py-4">Attendance</h1>
+<div class="container py-4">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Attendance</th>
+                <th>Status</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for report in reports %}
+            <tr>
+                <td>{{ report.student }}</td>
+                <td>{{ report.attendance }}</td>
+                <td>
+                    {% if report.status %}
+                    <span class="present">Present</span>
+                    {% else %}
+                    <span class="absent">Absent</span>
+                    {% endif %}
+                </td>
+                <td>{{ report.date }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock body %}

@@ -1,0 +1,116 @@
+{% extends "teachers.html" %}
+
+{% block head %}
+<style>
+    .nav-tabs .nav-link {
+        color: #495057;
+        font-weight: 600;
+        border-radius: 0;
+        background-color: #e9ecef;
+        margin-right: 10px;
+    }
+
+    .nav-tabs .nav-link.active {
+        background-color: #00CED1;
+        color: white;
+        border-color: #00CED1;
+    }
+
+    .nav-tabs .nav-link:hover {
+        background-color: #00CED1;
+        color: white;
+        transition: background-color 0.3s ease;
+    }
+
+    h1 {
+        font-size: 32px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .table {
+        background-color: white;
+        border-collapse: collapse;
+        width: 100%;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .table thead {
+        background-color: #333333;
+        color: white;
+    }
+
+    .table th, .table td {
+        padding: 15px;
+        border-bottom: 1px solid #ddd;
+        text-align: left;
+    }
+
+    .table tbody tr:hover {
+        background-color: #f1f1f1;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-primary.btn-sm {
+        background-color: #ff4c4c;
+        border: none;
+        padding: 5px 10px;
+        font-size: 12px;
+    }
+
+    .btn-primary.btn-sm:hover {
+        background-color: #ff1f1f;
+    }
+</style>
+{% endblock head %}
+
+{% block body %}
+<ul class="nav nav-tabs justify-content-end">
+    <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="/courses">List of Courses</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/addcourses">Add New Course</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" aria-current="page" href="/subjects">Subjects</a>
+    </li>
+</ul>
+
+<h1 class="text-center py-4">List of Courses</h1>
+<div class="container py-4">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Create Date</th>
+              <!--  <th scope="col">Action</th> -->
+            </tr>
+        </thead>
+        {% for Course in cc %}
+        <tbody>
+            <tr>
+                <td>{{ Course.name }}</td>
+                <td>{{ Course.date }}</td>
+           <!--     <td>
+                    <form name="Deleteform" action="" method="">
+                        {% csrf_token %}
+                        <a href="delete/{{ Course.id }}" class="btn btn-primary btn-sm">Delete</a>
+                    </form>
+                </td> -->
+            </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+</div>
+{% endblock body %}

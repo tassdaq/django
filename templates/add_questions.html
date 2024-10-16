@@ -1,0 +1,153 @@
+{% extends "userprofile.html" %}
+{% block head %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        color: #333;
+        margin: 0;
+        padding: 20px;
+    }
+
+    h2 {
+        color: #000;
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 24px;
+    }
+
+    h3 {
+        color: #333;
+        margin-top: 20px;
+        font-size: 20px;
+    }
+
+    .form-container {
+        background: #ffffff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 30px;
+        max-width: 600px;
+        margin: 0 auto;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        font-weight: bold;
+        margin-bottom: 5px;
+        display: block;
+    }
+
+    input[type="text"], textarea, select {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box;
+        transition: border-color 0.3s;
+        font-size: 16px;
+    }
+
+    input[type="text"]:focus {
+        border-color: #4CAF50;
+        outline: none;
+    }
+
+    button {
+        background-color: #333333;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 12px 20px;
+        cursor: pointer;
+        font-size: 18px;
+        display: block;
+        width: 100%;
+        transition: background-color 0.3s;
+        margin-top: 20px;
+    }
+
+    button:hover {
+        background-color: #333333;
+    }
+
+    .existing-questions {
+        margin-top: 30px;
+        background: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 15px;
+    }
+
+    .existing-questions h2 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 15px;
+        font-size: 24px;
+    }
+
+    .existing-questions ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .choice-group {
+        margin-top: 10px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #f1f1f1;
+    }
+
+    .choice-group input[type="text"] {
+        margin-top: 5px;
+    }
+
+    .choice-group label {
+        margin-top: 10px;
+        font-weight: normal;
+    }
+</style>
+{% endblock head %}
+
+
+
+{% block body %}
+<h2>Add a Question for {{ test.title }}</h2>
+
+<div class="form-container">
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ question_form.as_p }}
+        </div>
+
+        <h3>Choices (Mark one as correct)</h3>
+        {{ choice_formset.management_form }}
+        {% for form in choice_formset %}
+            <div class="choice-group">
+                {{ form.as_p }}
+            </div>
+        {% endfor %}
+
+        <button type="submit">Add Question</button>
+    </form>
+</div>
+
+<div class="existing-questions">
+    <h2>Existing Questions:</h2>
+    {% for question in questions %}
+        <h3>{{ question.question_text }}</h3>
+        <ul>
+            {% for choice in question.choices.all %}
+                <li>{{ choice.choice_text }} {% if choice.is_correct %}<strong>(Correct)</strong>{% endif %}</li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+</div>
+
+{% endblock body %}

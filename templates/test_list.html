@@ -1,0 +1,60 @@
+{% extends "student.html" %}
+
+{% block head %}
+<style>
+    /* Title Style */
+    .test-title {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    /* List Style */
+    .test-list {
+        list-style-type: none;
+        padding: 0;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    /* List Item Style */
+    .test-item {
+        margin: 15px 0;
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 15px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s;
+    }
+
+    /* Link Style */
+    .test-link {
+        text-decoration: none;
+        color: #00CED1;
+        font-weight: bold;
+    }
+
+    /* Hover Effect */
+    .test-item:hover {
+        background-color: #e7f1ff; /* Change background on hover */
+    }
+</style>
+{% endblock head %}
+
+{% block body %}
+<h1 class="test-title">Available Tests</h1>
+<ul class="test-list">
+    {% if tested %}
+        {% for test in tested %}
+            <li class="test-item">
+                <a href="{% url 'take_test' test.id %}" class="test-link">{{ test.title }}</a>
+            </li>
+        {% endfor %}
+    {% else %}
+        <li class="test-item">
+            <p>No tests available for you at the moment.</p>
+        </li>
+    {% endif %}
+</ul>
+{% endblock body %}
